@@ -7,7 +7,7 @@
 #include "BinTree.h"
 #include "BinTest.h"
 
-#define TEST_LEN 10
+#define TEST_LEN 1000
 
 int main(int argc, char** argv) {
 
