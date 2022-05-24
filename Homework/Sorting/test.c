@@ -6,7 +6,7 @@
 #include "sorting.h"
 #include "test.h"
 
-#define TEST_LEN 40000
+#define TEST_LEN 50000
 #define TEST_TIME 2
 
 int main() {
