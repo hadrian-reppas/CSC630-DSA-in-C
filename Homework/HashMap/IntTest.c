@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "HashMap.h"
-#include "HashTest.h"
+#include "IntTest.h"
 
 #define TEST_LEN 1000
 
@@ -53,8 +53,8 @@ void test_contains_and_delete() {
 
     for (int i = 0; i < TEST_LEN; i++) {
         assert(contains(map, arr[i]));
-        // delete(map, arr[i]);
-        // assert(!contains(map, arr[i]));
+        delete(map, arr[i]);
+        assert(!contains(map, arr[i]));
     }
 
     destroy(map);
@@ -64,8 +64,8 @@ void test_contains_and_delete() {
 
 // Add a bunch of random keys and values such that
 // key*key = value. Then loop over each key and
-// change the value to key*key - 1 and check that.
-// Finally, use get() to check that values are correct
+// change the value to key*key - 1 and
+// use get() to check that values are correct.
 void test_edit() {
     int arr[TEST_LEN];
     fill_arr(arr, TEST_LEN);
