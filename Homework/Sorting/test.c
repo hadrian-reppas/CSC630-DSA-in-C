@@ -6,39 +6,47 @@
 #include "sorting.h"
 #include "test.h"
 
-#define TEST_LEN 50000
 #define TEST_TIME 2
+
+int test_lens[] = {20, 50, 100, 500, 1000, 5000, 10000, 50000};
 
 int main() {
 
     srand(time(NULL));
 
+    printf("              \t20\t50\t100\t500\t1000\t5000\t10000\t50000\n");
+    printf("--------------------------------------------------------------------------------\n");
     test_sort(insertion_sort, "insertion sort");
-    test_sort(merge_sort, "merge sort");
-    test_sort(heap_sort, "heap sort");
-    test_sort(quick_sort, "quick sort");
-    test_sort(radix_sort, "radix sort");
-
+    test_sort(merge_sort, "    merge sort");
+    test_sort(heap_sort, "     heap sort");
+    test_sort(quick_sort, "    quick sort");
+    test_sort(radix_sort, "    radix sort");
 
     return 0;
 }
 
+// Takes a sorting function, runs it as many times as possible
+// in TEST_TIME seconds. Then prints the average time.
 void test_sort(void(*sort)(int*, int), char* name) {
-    time_t start = time(NULL);
-    long timer = 0;
-    int arr[TEST_LEN];
-    int n = 0;
+    int arr[50000];
+    printf("%s", name);
 
-    while (time(NULL) - start < TEST_TIME) {
-        fill_array(arr, TEST_LEN);
-        start_timer();
-        sort(arr, TEST_LEN);
-        timer += stop_timer();
-        assert_is_sorted(arr, TEST_LEN);
-        n++;
+    for (int i = 0; i < 8; i++) {
+        time_t start = time(NULL);
+        long timer = 0;
+        int n = 0;
+        while (time(NULL) - start < TEST_TIME) {
+            fill_array(arr, test_lens[i]);
+            start_timer();
+            sort(arr, test_lens[i]);
+            timer += stop_timer();
+            assert_is_sorted(arr, test_lens[i]);
+            n++;
+        }
+        printf("\t%ld", timer/(1000 * n));
+        fflush(stdout);
     }
-
-    printf("%s on array of length %d: %ld μs\n", name, TEST_LEN, timer/(1000*n));
+    printf("\n");
 }
 
 long start;
