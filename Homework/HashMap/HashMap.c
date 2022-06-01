@@ -6,8 +6,10 @@
 
 #ifdef STR_KEY
   #define EQ(a, b) !strcmp(a, b)
+  #define KEY_TYPE char*
 #else
   #define EQ(a, b) a == b
+  #define KEY_TYPE int
 #endif
 
 #ifdef STR_KEY
@@ -27,12 +29,7 @@ int hash(struct hash_map* map, int x) {
 }
 #endif
 
-
-#ifdef STR_KEY
-void add(struct hash_map* map, char* key, int value) {
-#else
-void add(struct hash_map* map, int key, int value) {
-#endif
+void add(struct hash_map* map, KEY_TYPE key, int value) {
     if (map->size >= map->n_buckets)
         grow(map);
     int h = hash(map, key);
@@ -44,11 +41,7 @@ void add(struct hash_map* map, int key, int value) {
     map->size++;
 }
 
-#if STR_KEY
-int get(struct hash_map* map, char* key) {
-#else
-int get(struct hash_map* map, int key) {
-#endif
+int get(struct hash_map* map, KEY_TYPE key) {
     int h = hash(map, key);
     struct node* cur = map->buckets[h];
     while (1) {
@@ -58,11 +51,7 @@ int get(struct hash_map* map, int key) {
     }
 }
 
-#if STR_KEY
-int contains(struct hash_map* map, char* key) {
-#else
-int contains(struct hash_map* map, int key) {
-#endif
+int contains(struct hash_map* map, KEY_TYPE key) {
     int h = hash(map, key);
     struct node* cur = map->buckets[h];
     while (cur) {
@@ -73,11 +62,7 @@ int contains(struct hash_map* map, int key) {
     return 0;
 }
 
-#if STR_KEY
-void edit(struct hash_map* map, char* key, int new_value) {
-#else
-void edit(struct hash_map* map, int key, int new_value) {
-#endif
+void edit(struct hash_map* map, KEY_TYPE key, int new_value) {
     int h = hash(map, key);
     struct node* cur = map->buckets[h];
     while (cur) {
@@ -89,11 +74,7 @@ void edit(struct hash_map* map, int key, int new_value) {
     }
 }
 
-#if STR_KEY
-void delete(struct hash_map* map, char* key) {
-#else
-void delete(struct hash_map* map, int key) {
-#endif
+void delete(struct hash_map* map, KEY_TYPE key) {
     if (2*map->size < map->n_buckets)
         shrink(map);
     map->size--;
