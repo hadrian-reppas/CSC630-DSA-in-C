@@ -5,14 +5,6 @@
 #include "HashMap.h"
 
 #ifdef STR_KEY
-  #define EQ(a, b) !strcmp(a, b)
-  #define KEY_TYPE char*
-#else
-  #define EQ(a, b) a == b
-  #define KEY_TYPE int
-#endif
-
-#ifdef STR_KEY
 int hash(struct hash_map* map, char* x) {
     int h = 0;
     int p = 1;

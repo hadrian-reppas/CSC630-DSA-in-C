@@ -1,8 +1,10 @@
 
 #ifdef STR_KEY
   #define KEY_TYPE char*
+  #define EQ(a, b) !strcmp(a, b)
 #else
   #define KEY_TYPE int
+  #define EQ(a, b) a == b
 #endif
 
 struct node {
